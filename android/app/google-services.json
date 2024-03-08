@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "590335448099",
+    "project_id": "parki-maaya",
+    "storage_bucket": "parki-maaya.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590335448099:android:6105c74ea3a6e83eb04d96",
+        "android_client_info": {
+          "package_name": "com.example.parki"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtb6t7BBdoGia3McrRlSTzNJg66Pty56o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
