@@ -1,8 +1,6 @@
-import "package:flutter/widgets.dart";
+import "package:flutter/material.dart";
 import "package:parki/components/custom_button.dart";
 import "package:parki/components/custom_textfield.dart";
-import "package:flutter/material.dart";
-import "package:parki/constants/constants.dart";
 import "package:parki/functions/toast_snack_bar.dart";
 import "package:parki/services/auth/auth_manager.dart";
 
@@ -21,10 +19,11 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  bool showPassword = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.grey[300],
       body: SingleChildScrollView(
         reverse: true,
         child: SafeArea(
@@ -42,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                   Icon(
                     Icons.car_rental,
                     size: 100,
-                    color: iconColor,
+                    color: Colors.grey[800],
                   ),
 
                   const SizedBox(
@@ -52,7 +51,10 @@ class _LoginPageState extends State<LoginPage> {
                   // welcome back text
                   const Text(
                     "Welcome Back, Ready to park again?",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
 
                   const SizedBox(
@@ -74,11 +76,29 @@ class _LoginPageState extends State<LoginPage> {
                   CustomTextField(
                     controller: passwordController,
                     hintText: 'Password',
-                    obscureText: true,
+                    obscureText: showPassword,
                   ),
 
                   const SizedBox(
-                    height: 25,
+                    height: 10,
+                  ),
+
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: !showPassword,
+                        onChanged: (value) {
+                          setState(() {
+                            showPassword = !showPassword;
+                          });
+                        },
+                      ),
+                      const Text("Show Password"),
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: 15,
                   ),
 
                   //sign in button
@@ -100,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
 
                   const SizedBox(
-                    height: 50,
+                    height: 20,
                   ),
 
                   // become a member button
@@ -115,7 +135,9 @@ class _LoginPageState extends State<LoginPage> {
                         onTap: widget.onTap,
                         child: const Text(
                           'Sign Up Now!',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
