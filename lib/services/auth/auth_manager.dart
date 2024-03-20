@@ -27,24 +27,15 @@ class AuthManager {
       // Dismiss loading circle after successful login
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
       if (e.code == 'user-not-found') {
-        //pop loading circle
-        // ignore: use_build_context_synchronously
-        Navigator.pop(context);
         // ignore: use_build_context_synchronously
         ToastBar(context, "No user found for that email.");
       } else if (e.code == 'wrong-password') {
-        //pop loading circle
-        // ignore: use_build_context_synchronously
-        Navigator.pop(context);
         // ignore: use_build_context_synchronously
         ToastBar(context, "Wrong password provided for that user.");
       }
     }
-
-    //pop loading circle
-    // ignore: use_build_context_synchronously
-    //Navigator.pop(context);
   }
 
   Future<UserCredential> signInWithFacebook() async {
@@ -64,6 +55,26 @@ class AuthManager {
         child: CircularProgressIndicator(),
       ),
     );
+
+    try {
+      FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Dismiss loading circle after successful login
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "email-already-in-use") {
+        // ignore: use_build_context_synchronously
+        ToastBar(context, "Email already in use");
+        Navigator.pop(context);
+      } else if (e.code == "weak-password") {
+        // ignore: use_build_context_synchronously
+        ToastBar(context, "Password is too weak");
+        Navigator.pop(context);
+      }
+    }
   }
 
   void signUserOut() {
