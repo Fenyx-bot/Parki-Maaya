@@ -24,6 +24,8 @@ class AuthManager {
         email: email,
         password: password,
       );
+      // Dismiss loading circle after successful login
+      Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         //pop loading circle
