@@ -1,11 +1,13 @@
-import "package:firebase_auth/firebase_auth.dart";
+import "package:flutter/widgets.dart";
 import "package:parki/components/custom_button.dart";
 import "package:parki/components/custom_textfield.dart";
 import "package:flutter/material.dart";
+import "package:parki/constants/constants.dart";
+import "package:parki/functions/toast_snack_bar.dart";
 import "package:parki/services/auth/auth_manager.dart";
 
 class LoginPage extends StatefulWidget {
-  final void Function()? onTap;
+  final VoidCallback onTap;
   const LoginPage({super.key, required this.onTap});
 
   @override
@@ -22,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         reverse: true,
         child: SafeArea(
@@ -30,88 +32,96 @@ class _LoginPageState extends State<LoginPage> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 50,
-                    ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
 
-                    //logo
-                    Icon(
-                      Icons.car_rental,
-                      size: 100,
-                      color: Colors.grey[800],
-                    ),
+                  //logo
+                  Icon(
+                    Icons.car_rental,
+                    size: 100,
+                    color: iconColor,
+                  ),
 
-                    const SizedBox(
-                      height: 50,
-                    ),
+                  const SizedBox(
+                    height: 50,
+                  ),
 
-                    // welcome back text
-                    const Text(
-                      "Welcome Back, Ready to park again?",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
+                  // welcome back text
+                  const Text(
+                    "Welcome Back, Ready to park again?",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
 
-                    const SizedBox(
-                      height: 25,
-                    ),
+                  const SizedBox(
+                    height: 25,
+                  ),
 
-                    //email textfield
-                    CustomTextField(
-                      controller: emailController,
-                      hintText: 'Email',
-                      obscureText: false,
-                    ),
+                  //email textfield
+                  CustomTextField(
+                    controller: emailController,
+                    hintText: 'Email',
+                    obscureText: false,
+                  ),
 
-                    const SizedBox(
-                      height: 10,
-                    ),
+                  const SizedBox(
+                    height: 10,
+                  ),
 
-                    //password textfield
-                    CustomTextField(
-                        controller: passwordController,
-                        hintText: 'Password',
-                        obscureText: true),
+                  //password textfield
+                  CustomTextField(
+                    controller: passwordController,
+                    hintText: 'Password',
+                    obscureText: true,
+                  ),
 
-                    const SizedBox(
-                      height: 25,
-                    ),
+                  const SizedBox(
+                    height: 25,
+                  ),
 
-                    //sign in button
-                    CustomButton(
-                        onTap: () {
-                          _authManager.signInWithEmailAndPassword(
-                            context,
-                            emailController.text,
-                            passwordController.text,
-                          );
-                        },
-                        text: 'Sign In'),
+                  //sign in button
+                  CustomButton(
+                    onTap: () {
+                      if (emailController.text.isEmpty ||
+                          passwordController.text.isEmpty) {
+                        ToastBar(context, 'Please fill all the fields');
+                        return;
+                      }
 
-                    const SizedBox(
-                      height: 50,
-                    ),
+                      _authManager.signInWithEmailAndPassword(
+                        context,
+                        emailController.text,
+                        passwordController.text,
+                      );
+                    },
+                    text: 'Sign In',
+                  ),
 
-                    //become a member button
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('Not a member yet?'),
-                        const SizedBox(
-                          width: 4,
+                  const SizedBox(
+                    height: 50,
+                  ),
+
+                  // become a member button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Not a member yet?'),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      InkWell(
+                        onTap: widget.onTap,
+                        child: const Text(
+                          'Sign Up Now!',
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        GestureDetector(
-                          onTap: widget.onTap,
-                          child: const Text(
-                            'Sign Up Now!',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      ],
-                    )
-                  ]),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -119,4 +129,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
