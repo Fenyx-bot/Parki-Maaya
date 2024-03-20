@@ -112,8 +112,8 @@ class _LoginPageState extends State<LoginPage> {
 
                       _authManager.signInWithEmailAndPassword(
                         context,
-                        emailController.text,
-                        passwordController.text,
+                        emailController.text.trim(),
+                        passwordController.text.trim(),
                       );
                     },
                     text: 'Sign In',

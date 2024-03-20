@@ -117,8 +117,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
                       _authManager.signUp(
                         context,
-                        emailController.text,
-                        passwordController.text,
+                        emailController.text.trim(),
+                        passwordController.text.trim(),
                       );
                     },
                     text: 'Sign Up',

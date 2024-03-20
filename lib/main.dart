@@ -26,6 +26,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Parki Maaya',
       home: const AuthPage(),
+      routes: {
+        // "/profile": (context) => const ProfilePage(),
+        // "/settings": (context) => const SettingsPage(),
+      },
     );
   }
 }
